@@ -114,6 +114,10 @@ int main()
 
             return rc;
         }
+        else
+        {
+            std::cout << "table 'file_info' created or already exists" << std::endl;
+        }
 
         const char* deleteSQL = "DELETE FROM file_info";
 
@@ -179,6 +183,9 @@ int main()
                 std::string filepath = entry.path().string();
                 std::string filename = entry.path().filename().string();
                 std::cout << "File: " << filename << "in path " << filepath << std::endl;
+
+                insertFileInfo(db, filepath, filename);
+
             }
 
         }
@@ -213,7 +220,12 @@ int main()
 
         {
             std::cerr << "failed to execute statement:  " << sqlite3_errmsg(db) << std::endl;
+
         }
+        /*else
+        {
+            std::cout << "inserted :  " << name << "in " << path << std::endl;
+        }*/
 
         sqlite3_finalize(stmt);
   
