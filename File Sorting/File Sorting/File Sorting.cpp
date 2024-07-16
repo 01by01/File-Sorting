@@ -22,13 +22,17 @@ namespace fs = std::filesystem;
 
 
 
-std::string getDirectoryName(const std::string& path)
+std::string GetDirectoryName(const std::string& path)
 {
-    fs::path dirPath(path);
+    fs::path subentry(path);
+
     {
-        return dirPath.parent_path().filename().string();
+
+        return subentry.filename().string();
+
     }
-    return dirPath.filename().string();
+    return subentry.filename().string();
+
 }
 
 
@@ -46,7 +50,7 @@ int main()
 
     std::getline(std::cin, UserInput);
 
-    std::string DirectoryName = getDirectoryName(UserInput);
+    std::string DirectoryName = GetDirectoryName(UserInput);
 
     std::string DBTitle = DirectoryName + ".db";
 
@@ -140,6 +144,9 @@ int main()
             }
 
         const fs::path dir = UserInput;
+
+        std::cout << "Table name is file_info" << std::endl;
+   
 
         for (const auto& entry : fs::directory_iterator(dir))
 
